@@ -1,0 +1,65 @@
+Code:
+Step 1: add namespace using System.Data.Oledb; for access Database.
+Step 2: Create connection object.
+OleDbConnection con;
+OleDbCommand cmd;
+OleDbDataReader dr;
+Step 3: Form1_Load
+con = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\\Documents and
+Settings\\Admin\\Desktop\\Ado Connected Demo\\db1.mdb");
+private void display()
+con.Open();
+~ 38 ~
+cmd = new OleDbCommand("select * from Employee",con);
+dr = cmd.ExecuteReader();
+DataTable dt = new DataTable();
+dt.Load(dr);
+dataGridView1.DataSource = dt;
+con.Close();
+Display_Click
+display();
+Insert_Click
+con.Open();
+int aa = Convert.ToInt32(textBox1.Text);
+string bb = textBox2.Text;
+int cc = Convert.ToInt32(textBox3.Text);
+cmd = new OleDbCommand("INSERT INTO Employee(Emp_ID, Emp_Name,Salary) VALUES ('"
++ aa + "','" + bb + "','" + cc + "')", con);
+cmd.ExecuteNonQuery();
+MessageBox.Show("one record inserted:");
+con.Close();
+display();
+Delete_Click
+con.Open();
+int aa = Convert.ToInt32(textBox1.Text);
+cmd = new OleDbCommand("DELETE FROM Employee where Emp_ID='" + aa + "'", con);
+cmd.ExecuteNonQuery();
+MessageBox.Show("one record Delete:");
+con.Close();
+display();
+update_Click
+con.Open();
+int aa = Convert.ToInt32(textBox1.Text);
+string bb = textBox2.Text;
+int cc = Convert.ToInt32(textBox3.Text);
+string abc = "UPDATE Employee SET Emp_ID ='" + aa + "', Emp_Name ='" + bb + "', Salary ='" +
+cc + "' WHERE Emp_ID = '" + aa + "'";
+OleDbCommand cmd = new OleDbCommand(abc, con);
+cmd.ExecuteNonQuery();
+MessageBox.Show("one record updated:");
+con.Close();
+display();
+~ 39 ~
+Find_Click
+con.Open();
+int aa = Convert.ToInt32(textBox1.Text);
+string abc = "SELECT Emp_ID,Emp_Name,Salary FROM Employee where Emp_ID='" + aa + "'";
+cmd = new OleDbCommand(abc, con);
+MessageBox.Show("one record search:");
+dr = cmd.ExecuteReader();
+DataTable dt = new DataTable();
+dt.Load(dr);
+dataGridView1.DataSource = dt;
+con.Close();
+Exit_Click
+Application.Exit();

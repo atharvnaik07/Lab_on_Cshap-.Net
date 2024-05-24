@@ -1,0 +1,53 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="HomePage.master.cs"
+Inherits="HomePage" %>
+ <!DOCTYPE html>
+ <html xmlns="http://www.w3.org/1999/xhtml"> head runat="server">
+ <title></title>
+ </head>
+
+~ 23 ~
+ <body>
+ <form id="form1" runat="server">
+ <div>
+ <table border="1">
+ <tr>
+ <td colspan="2" style="text-align: center">
+ <h1>Header</h1>
+ </td>
+ </tr>
+ <tr>
+ <td style="text-align: center; height: 480px; width: 250px">
+ <h1>Menu</h1>
+ </td>
+ <td style="text-align: center; height: 480px; width: 700px">
+ <asp:ContentPlaceHolder ID="MainContentPlaceHolder1" runat="server">
+ <h1>you can change Content here</h1>
+ </asp:ContentPlaceHolder>
+ </td>
+ </tr>
+ <tr>
+ <td colspan="2" style="text-align: center">
+ <h1>Footer</h1>
+ </td>
+ </tr>
+ </table>
+ </div>
+ </form>
+ </body>
+ </html>
+
+
+
+
+
+
+
+
+
+write your code inside Content Placeholder.See the below code.
+<%@ Page Title="" Language="C#" MasterPageFile="~/HomePage.master" AutoEventWireup="true"
+CodeFile="Default.aspx.cs" Inherits="_Default" %> < asp: Content ID = "Content1"
+ContentPlaceHolderID = "MainContentPlaceHolder1"
+runat = "Server" > < table > < tr > < th > < h1 > Student Information < /h1> < /th> < /tr> < tr > < td > <
+b > Name: Chetan Nargund < /b> </td > < /tr> < tr > < td > < b > College: AIT < /b> </td > < /tr> < tr >
+< td > < b > City: Bangalore < /b></td > < /tr> < /table> < /asp:Content>

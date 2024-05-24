@@ -1,0 +1,53 @@
+ Cookies Code:
+Code for Default.aspx design page
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default2.aspx.cs"
+Inherits="Default2" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+ <title>Untitled Page</title>
+~ 30 ~
+</head>
+<body>
+ <form id="form1" runat="server">
+ <div>
+ <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Style="top: 231px;
+ left: 476px; position: absolute; height: 26px; width: 116px" Text="Show Cookie" />
+ </div>
+ </form>
+</body>
+</html>
+ C# Code:
+using System;
+using System.Collections;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
+
+public partial class Default2 : System.Web.UI.Page
+{
+ protected void Page_Load(object sender, EventArgs e)
+ {
+ foreach (string str in Request.Headers)
+ {
+ Response.Write(str + "=" + Request.Headers[str] + "<br>");
+ }
+ Response.Write("________________________________________________" + "<br>");
+ }
+
+ protected void Button1_Click(object sender, EventArgs e)
+ {
+ foreach (string str in Request.Cookies["test"].Values)
+ {
+ Response.Write(str + "=" + Request.Cookies["test"].Values[str] + "<br>");
+ }
+ }
+} 

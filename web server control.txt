@@ -1,0 +1,74 @@
+Practical no:2
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" Inherits="WebApplication3.WebForm1" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+</head>
+<body>
+    <h1>Webform controls</h1>
+    <h2>Student Information</h2>
+    <form id="form1" runat="server">
+       <p>First Name: <asp:TextBox ID="TextBox1" runat="server" ></asp:TextBox></p>
+       <p> Last Name:<asp:TextBox ID="TextBox2" runat="server"></asp:TextBox></p>
+       <p> Email-id:<asp:TextBox ID="TextBox3" runat="server"></asp:TextBox></p>
+        <P>Gender:<asp:RadioButton ID="RadioButton1" runat="server" Text="Male" />
+            <asp:RadioButton ID="RadioButton2" runat="server" Text="Female" /></P>
+       <p> <asp:Button ID="Button1" runat="server"  OnClick1="Button1_Click1"  Text="Submit" /></p>
+        <br />
+        <br />
+        <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+        <br />
+        <br />
+        <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label>
+        <br />
+        <br />
+        <asp:Label ID="Label3" runat="server" Text="Label"></asp:Label>
+        <br />
+        <br />
+        <asp:Label ID="Label4" runat="server" Text="Label"></asp:Label>
+    </form>
+</body>
+</html>
+
+c# code:
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace WebApplication3
+{
+    public partial class WebForm1 : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void Button_Click(object sender, EventArgs e)
+        {
+            string fname = TextBox1.Text;
+            string lname = TextBox2.Text;
+            string email = TextBox3.Text;
+            string gender = "";
+            if(RadioButton1.Checked)
+            {
+                gender = RadioButton1.Text;
+            }
+            else
+            {
+                gender = RadioButton2.Text;
+            }
+            Label1.Text = "First Name:" + fname;
+            Label2.Text = "Last Name:" + lname;
+            Label3.Text = "Email-id:" + email;
+            Label4.Text = "Gender::" + gender;
+        }
+    }
+}
+

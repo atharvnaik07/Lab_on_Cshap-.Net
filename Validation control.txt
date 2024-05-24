@@ -1,0 +1,37 @@
+Aspx File
+
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs"
+Inherits="IntrinsicObjectsDemo.Default" %>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+ <title>Display User Information</title>
+</head>
+<body>
+ <form id="form1" runat="server">
+ <div>
+~ 28 ~
+ <h1>User Information</h1>
+ <p>IP Address: <% Response.Write(Server.HtmlEncode(Request.UserHostAddress));
+%></p>
+ <p>Browser: <% Response.Write(Server.HtmlEncode(Request.Browser.Browser));
+%> <% Response.Write(Server.HtmlEncode(Request.Browser.Version)); %></p>
+ </div>
+ </form>
+</body>
+</html>
+
+
+ C# Code:
+
+using System;
+namespace IntrinsicObjectsDemo
+{
+ public partial class Default : System.Web.UI.Page
+ {
+ protected void Page_Load(object sender, EventArgs e)
+ {
+ // You can perform additional logic here if needed
+ }
+ }
+}

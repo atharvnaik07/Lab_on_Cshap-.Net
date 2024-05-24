@@ -1,0 +1,52 @@
+ Application_Error
+protected void Application_Error(Object sender, EventArgs e)
+{
+ Response.Write("<font face=\"Tahoma\" size=\"2\" color=\"red\">");
+ Response.Write("Oops! Looks like an error occurred!!<hr></font>");
+ Response.Write("<font face=\"Arial\" size=\"2\">");
+ Response.Write(Server.GetLastError().Message.ToString());
+ Response.Write("<hr>" + Server.GetLastError().ToString());
+ Server.ClearError();
+}
+
+
+///////////////////////////////////////////
+
+
+
+protected void Application_AuthenticateRequest(Object sender, EventArgs e)
+{
+ Response.Write("Authenticating request...<br>");
+ bool cookieFound = false;
+ HttpCookie authCookie = null;
+ HttpCookie cookie;
+ for (int i = 0; i < Request.Cookies.Count; i++)
+ {
+ cookie = Request.Cookies[i];
+ if (cookie.Name == FormsAuthentication.FormsCookieName)
+ {
+~ 19 ~
+ cookieFound = true;
+ authCookie = cookie;
+ break;
+ }
+ }
+ // If the cookie has been found, it means it has been issued from either
+ // the windows authorisation site, is this forms auth site.
+ if (cookieFound)
+ {
+ // Extract the roles from the cookie, and assign to our current principal, which is attached to the
+ // HttpContext.
+ FormsAuthenticationTicket winAuthTicket = FormsAuthentication.Decrypt(authCookie.Value);
+ string[] roles = winAuthTicket.UserData.Split(';');
+ FormsIdentity formsId = new FormsIdentity(winAuthTicket);
+ System.Security.Principal.GenericPrincipal princ = new
+System.Security.Principal.GenericPrincipal(formsId, roles);
+ HttpContext.Current.User = princ;
+ }
+ else
+ {
+ // No cookie found, we can redirect to the Windows auth site if we want, or let it pass through so
+ // that the forms auth system redirects to the logon page for us.
+ }
+}

@@ -1,0 +1,136 @@
+Code:
+Employee.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="DataReapterDemo.aspx.cs"
+Inherits="DataReapterDemo" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+ xmlns="http://www.w3.org/1999/xhtml">
+ <head runat="server">
+ <title></title>
+ <style>
+ tr {
+ height:40px;
+ }
+ </style>
+ </head>
+ <body>
+ <form id="form1" runat="server">
+ <div>
+ <center>
+~ 41 ~
+ <div style=" border: 2px solid red;text-align: left;border-radius: 2px;Padding-top: 3px;backgroundcolor: Lime;width: 500px;border-radius: 8px;font-size: 20px;">
+ <asp:Repeater ID="rp1" runat="server">
+ <HeaderTemplate>
+ <table style="width:500px;padding-top:0px;Background-color:Gold" >
+ <tr>
+ <td style="font-size: 26px;
+ text-align: center;
+ height: 48px;">
+ <asp:Label ID="lblhdr" runat="server" Text = "Student Profile"></asp:Label>
+ </td>
+ </tr>
+ </table>
+ </HeaderTemplate>
+ <ItemTemplate>
+ <table style="width:500px;">
+ <tr>
+ <td>
+ <asp:Label ID="lblempid1" runat="server" Text="Employee ID:"></asp:Label>
+ </td>
+ <td>
+ <asp:Label ID="lblempid2" runat="server" Text='<%# Eval("EmpId") %>'>
+ </asp:Label>
+ </td>
+ <td rowspan="5">
+ <asp:Image ID="img1" runat="server" Width="100px" ImageUrl= '
+ <%#"~/images/" + Eval("EmpImage") %>'/>
+ </td>
+ </tr>
+ <tr>
+ <td>
+ <asp:Label ID="lblempname1" runat="server" Text="Employee Name"></asp:Label>
+ </td>
+ <td>
+ <asp:Label ID="lblempname2" runat="server" Text='<%# Eval("EmpName") %>'>
+ </asp:Label>
+ </td>
+ </tr>
+ <tr>
+ <td>
+ <asp:Label ID="lblempemailId1" runat="server" Text="Employee EmailId"></asp:Label>
+ </td>
+ <td>
+ <asp:Label ID="lblempemailId2" runat="server" Text='<%# Eval("EmpEmailId") %>'>
+ </asp:Label>
+ </td>
+ </tr>
+ <tr>
+ <td>
+ <asp:Label ID="lblempmob1" runat="server" Text="Mobile Number"></asp:Label>
+ </td>
+~ 42 ~
+ <td>
+ <asp:Label ID="lblempmob2" runat="server" Text='<%# Eval("EmpMobileNum") %>'>
+ </asp:Label>
+ </td>
+ </tr>
+ <tr>
+ <td>
+ <asp:Label ID="lblempgen1" runat="server" Text="Gender"></asp:Label>
+ </td>
+ <td>
+ <asp:Label ID="lblempgen2" runat="server" Text='<%# Eval("EmpGender") %>'>
+ </asp:Label>
+ </td>
+ </tr>
+ </table>
+ </ItemTemplate>
+ <FooterTemplate>
+ <table>
+ <tr>
+
+ </tr>
+ </table>
+ </FooterTemplate>
+ </asp:Repeater>
+ </div>
+ </center>
+ </div>
+ </form>
+ </body>
+</html>
+ Employee.aspx.cs (C# Code)
+using System;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+using System.Data.SqlClient;
+using System.Data;
+using System.Web.Configuration;
+
+public partial class DataReapterDemo : System.Web.UI.Page
+{
+ SqlConnection con = new
+SqlConnection(WebConfigurationManager.ConnectionStrings["myconnection"].ConnectionString);
+ protected void Page_Load(object sender, EventArgs e)
+ {
+ if (!IsPostBack)
+ {
+ Bind();
+ } }
+
+
+
+public void Bind()
+ {
+ SqlCommand cmd = new SqlCommand("select * from Employee where EmpId = 1200",con);
+ SqlDataAdapter da = new SqlDataAdapter(cmd);
+ DataSet ds = new DataSet();
+ da.Fill(ds, "Employee");
+ rp1.DataSource = ds.Tables[0];
+ rp1.DataBind();
+
+ }
+} 
